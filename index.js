@@ -16,8 +16,8 @@ const app = express();
 app.use(helmet());
 
 const allowedOrigins = [
-  'https://task-manage-frontend-eight.vercel.app',
-  'https://task-manage-frontend-eight.vercel.app',
+  'https://task-manage-frontend-indol.vercel.app',
+  'https://task-manage-frontend-indol.vercel.app',
   'http://localhost:5173'
 ];
 
