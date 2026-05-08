@@ -1,9 +1,7 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
-// @desc    Register new user
-// @route   POST /api/auth/register
-// @access  Public
+
 const registerUser = async (req, res) => {
   const { name, email, password } = req.body;
 
@@ -12,7 +10,7 @@ const registerUser = async (req, res) => {
     throw new Error('Please add all fields');
   }
 
-  // Check if user exists
+  
   const userExists = await User.findOne({ email });
 
   if (userExists) {
@@ -20,7 +18,7 @@ const registerUser = async (req, res) => {
     throw new Error('User already exists');
   }
 
-  // Create user
+ 
   const user = await User.create({
     name,
     email,
@@ -40,13 +38,11 @@ const registerUser = async (req, res) => {
   }
 };
 
-// @desc    Authenticate a user
-// @route   POST /api/auth/login
-// @access  Public
+
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
-  // Check for user email
+  
   const user = await User.findOne({ email }).select('+password');
 
   if (user && (await user.matchPassword(password))) {
@@ -62,14 +58,11 @@ const loginUser = async (req, res) => {
   }
 };
 
-// @desc    Get user data
-// @route   GET /api/auth/me
-// @access  Private
+
 const getMe = async (req, res) => {
   res.status(200).json(req.user);
 };
 
-// Generate JWT
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: '30d',
